@@ -1,5 +1,8 @@
 #include<iostream>
 #include<stack>
+#include<ctime>
+#include<iomanip>
+#include <cmath>
 using namespace std;
 
 class Point{
@@ -27,6 +30,8 @@ class Point{
         }
 };
 void Maxima(int n, Point* input){
+    time_t start, end;
+    time(&start);
     for(int i = 0; i < n; ++i){
         bool maximal = true;
         for(int j = 0; j < n; ++j){
@@ -44,6 +49,12 @@ void Maxima(int n, Point* input){
         //     cout << endl << input[i].getX() << " " << input[i].getY();
         // }
     }
+    time(&end);
+    double time_taken = double(end - start) * 1000000;
+    // cout << fixed;
+    cout << "Time Taken by Maxima BruteForce Algorithm is "; 
+    cout << fixed << time_taken << setprecision(10);
+    cout << " " << " micro seconds" << endl;
 }
 void displayAll(int n, Point* input){
     cout << "All the Points are given in order as follows " << endl;
@@ -66,6 +77,8 @@ void sortByX(int n, Point* input){
     }
 }
 void plainSweepMaxima(int n, Point* input){
+    time_t start, end;
+    time(&start);
     sortByX(n, input);
     stack<Point> Sweeped;
     for(int i = 0; i < n; ++i){
@@ -75,6 +88,9 @@ void plainSweepMaxima(int n, Point* input){
         }
         Sweeped.push(input[i]);
     }
+    time(&end);
+    double time_taken = double(end - start);
+    cout << "Time Taken by plain Sweep Algorithm is " << fixed << time_taken << setprecision(10) <<" " << " micro seconds" << endl;
     cout << "The maxima points are as follows" << endl;
     while(!Sweeped.empty()){
         Point topped = Sweeped.top();
@@ -87,6 +103,7 @@ int main(){
     int n;
     cin >> n; 
     Point* ArrayOfPoints = new Point[n];
+    
     for(int i = 0; i < n; ++i){
         int x; int y; 
         cout << "Enter the value of x for Point " << i + 1 << " : ";
@@ -96,6 +113,7 @@ int main(){
         ArrayOfPoints[i].setX(x);
         ArrayOfPoints[i].setY(y);
     }
+    Maxima(n, ArrayOfPoints);
     plainSweepMaxima(n, ArrayOfPoints);
     return 0;
 }
