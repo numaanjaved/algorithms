@@ -1,5 +1,13 @@
 #include<iostream>
+#include<cmath>
+#include<time.h>
 
+int choosePivot(int array[], int p, int r){
+    int size = r - p;
+    srand(time(0));
+    int output = rand() / size;
+    return output;
+}
 int select(int array[], int p, int r, int k){
     if(p == r){
         return array[p];
